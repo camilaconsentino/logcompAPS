@@ -1,0 +1,17 @@
+pao_branco(
+  add farinha, 500 g;
+  add agua, 300 ml;
+  add fermento, 5 un;
+  mix;
+
+  vol_inicial = volume;
+  while (volume <= vol_inicial * 2): wait 1 m;
+
+  vol_inicial = volume;
+  while (volume <= vol_inicial * 1.4): bake 1 m;
+
+  vol = volume;
+  wait 30 m;
+
+  if (volume < vol * 0.90): print("jogar fora"), else: print("perfeito");
+)

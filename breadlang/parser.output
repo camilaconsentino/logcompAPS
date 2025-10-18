@@ -1,0 +1,889 @@
+State 24 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: ε
+    2        | program recipe
+
+    3 recipe: IDENT LPAREN items RPAREN
+
+    4 items: ε
+    5      | items statement
+
+    6 statement: simple_stmt SEMI
+
+    7 simple_stmt: step
+    8            | assign_stmt
+    9            | while_stmt
+   10            | print_stmt
+   11            | if_stmt
+
+   12 if_stmt: IF LPAREN cond RPAREN COLON simple_stmt COMMA ELSE COLON simple_stmt
+
+   13 while_stmt: WHILE LPAREN cond RPAREN COLON simple_stmt
+
+   14 assign_stmt: IDENT ASSIGN simple
+
+   15 print_stmt: PRINT LPAREN STRING RPAREN
+
+   16 step: ADD IDENT
+   17     | ADD IDENT COMMA quantity
+   18     | MIX
+   19     | RISE time
+   20     | BAKE time
+   21     | WAIT time
+
+   22 quantity: NUMBER
+   23         | NUMBER UNIT_G
+   24         | NUMBER UNIT_ML
+   25         | NUMBER UNIT_UN
+
+   26 time: NUMBER
+   27     | NUMBER M_UNIT
+
+   28 cond: simple EQ simple
+   29     | simple NEQ simple
+   30     | simple LT simple
+   31     | simple GT simple
+   32     | simple LE simple
+   33     | simple GE simple
+
+   34 simple: term
+
+   35 term: factor
+   36     | term MUL factor
+
+   37 factor: NUMBER
+   38       | IDENT
+   39       | VOLUME
+   40       | LPAREN simple RPAREN
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    ADD (258) 16 17
+    MIX (259) 18
+    RISE (260) 19
+    BAKE (261) 20
+    WAIT (262) 21
+    IF (263) 12
+    ELSE (264) 12
+    WHILE (265) 13
+    PRINT (266) 15
+    VOLUME (267) 39
+    LPAREN (268) 3 12 13 15 40
+    RPAREN (269) 3 12 13 15 40
+    SEMI (270) 6
+    COMMA (271) 12 17
+    COLON (272) 12 13
+    ASSIGN (273) 14
+    MUL (274) 36
+    EQ (275) 28
+    NEQ (276) 29
+    LT (277) 30
+    GT (278) 31
+    LE (279) 32
+    GE (280) 33
+    NUMBER <num> (281) 22 23 24 25 26 27 37
+    IDENT <ident> (282) 3 14 16 17 38
+    STRING <str> (283) 15
+    UNIT_G (284) 23
+    UNIT_ML (285) 24
+    UNIT_UN (286) 25
+    M_UNIT (287) 27
+
+
+Nonterminals, with rules where they appear
+
+    $accept (33)
+        on left: 0
+    program <node> (34)
+        on left: 1 2
+        on right: 0 2
+    recipe <node> (35)
+        on left: 3
+        on right: 2
+    items <node> (36)
+        on left: 4 5
+        on right: 3 5
+    statement <node> (37)
+        on left: 6
+        on right: 5
+    simple_stmt <node> (38)
+        on left: 7 8 9 10 11
+        on right: 6 12 13
+    if_stmt <node> (39)
+        on left: 12
+        on right: 11
+    while_stmt <node> (40)
+        on left: 13
+        on right: 9
+    assign_stmt <node> (41)
+        on left: 14
+        on right: 8
+    print_stmt <node> (42)
+        on left: 15
+        on right: 10
+    step <node> (43)
+        on left: 16 17 18 19 20 21
+        on right: 7
+    quantity <node> (44)
+        on left: 22 23 24 25
+        on right: 17
+    time <node> (45)
+        on left: 26 27
+        on right: 19 20 21
+    cond <node> (46)
+        on left: 28 29 30 31 32 33
+        on right: 12 13
+    simple <node> (47)
+        on left: 34
+        on right: 14 28 29 30 31 32 33 40
+    term <node> (48)
+        on left: 35 36
+        on right: 34 36
+    factor <node> (49)
+        on left: 37 38 39 40
+        on right: 35 36
+
+
+State 0
+
+    0 $accept: • program $end
+
+    $default  reduce using rule 1 (program)
+
+    program  go to state 1
+
+
+State 1
+
+    0 $accept: program • $end
+    2 program: program • recipe
+
+    $end   shift, and go to state 2
+    IDENT  shift, and go to state 3
+
+    recipe  go to state 4
+
+
+State 2
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 3
+
+    3 recipe: IDENT • LPAREN items RPAREN
+
+    LPAREN  shift, and go to state 5
+
+
+State 4
+
+    2 program: program recipe •
+
+    $default  reduce using rule 2 (program)
+
+
+State 5
+
+    3 recipe: IDENT LPAREN • items RPAREN
+
+    $default  reduce using rule 4 (items)
+
+    items  go to state 6
+
+
+State 6
+
+    3 recipe: IDENT LPAREN items • RPAREN
+    5 items: items • statement
+
+    ADD     shift, and go to state 7
+    MIX     shift, and go to state 8
+    RISE    shift, and go to state 9
+    BAKE    shift, and go to state 10
+    WAIT    shift, and go to state 11
+    IF      shift, and go to state 12
+    WHILE   shift, and go to state 13
+    PRINT   shift, and go to state 14
+    RPAREN  shift, and go to state 15
+    IDENT   shift, and go to state 16
+
+    statement    go to state 17
+    simple_stmt  go to state 18
+    if_stmt      go to state 19
+    while_stmt   go to state 20
+    assign_stmt  go to state 21
+    print_stmt   go to state 22
+    step         go to state 23
+
+
+State 7
+
+   16 step: ADD • IDENT
+   17     | ADD • IDENT COMMA quantity
+
+    IDENT  shift, and go to state 24
+
+
+State 8
+
+   18 step: MIX •
+
+    $default  reduce using rule 18 (step)
+
+
+State 9
+
+   19 step: RISE • time
+
+    NUMBER  shift, and go to state 25
+
+    time  go to state 26
+
+
+State 10
+
+   20 step: BAKE • time
+
+    NUMBER  shift, and go to state 25
+
+    time  go to state 27
+
+
+State 11
+
+   21 step: WAIT • time
+
+    NUMBER  shift, and go to state 25
+
+    time  go to state 28
+
+
+State 12
+
+   12 if_stmt: IF • LPAREN cond RPAREN COLON simple_stmt COMMA ELSE COLON simple_stmt
+
+    LPAREN  shift, and go to state 29
+
+
+State 13
+
+   13 while_stmt: WHILE • LPAREN cond RPAREN COLON simple_stmt
+
+    LPAREN  shift, and go to state 30
+
+
+State 14
+
+   15 print_stmt: PRINT • LPAREN STRING RPAREN
+
+    LPAREN  shift, and go to state 31
+
+
+State 15
+
+    3 recipe: IDENT LPAREN items RPAREN •
+
+    $default  reduce using rule 3 (recipe)
+
+
+State 16
+
+   14 assign_stmt: IDENT • ASSIGN simple
+
+    ASSIGN  shift, and go to state 32
+
+
+State 17
+
+    5 items: items statement •
+
+    $default  reduce using rule 5 (items)
+
+
+State 18
+
+    6 statement: simple_stmt • SEMI
+
+    SEMI  shift, and go to state 33
+
+
+State 19
+
+   11 simple_stmt: if_stmt •
+
+    $default  reduce using rule 11 (simple_stmt)
+
+
+State 20
+
+    9 simple_stmt: while_stmt •
+
+    $default  reduce using rule 9 (simple_stmt)
+
+
+State 21
+
+    8 simple_stmt: assign_stmt •
+
+    $default  reduce using rule 8 (simple_stmt)
+
+
+State 22
+
+   10 simple_stmt: print_stmt •
+
+    $default  reduce using rule 10 (simple_stmt)
+
+
+State 23
+
+    7 simple_stmt: step •
+
+    $default  reduce using rule 7 (simple_stmt)
+
+
+State 24
+
+   16 step: ADD IDENT •
+   17     | ADD IDENT • COMMA quantity
+
+    COMMA  shift, and go to state 34
+
+    COMMA     [reduce using rule 16 (step)]
+    $default  reduce using rule 16 (step)
+
+
+State 25
+
+   26 time: NUMBER •
+   27     | NUMBER • M_UNIT
+
+    M_UNIT  shift, and go to state 35
+
+    $default  reduce using rule 26 (time)
+
+
+State 26
+
+   19 step: RISE time •
+
+    $default  reduce using rule 19 (step)
+
+
+State 27
+
+   20 step: BAKE time •
+
+    $default  reduce using rule 20 (step)
+
+
+State 28
+
+   21 step: WAIT time •
+
+    $default  reduce using rule 21 (step)
+
+
+State 29
+
+   12 if_stmt: IF LPAREN • cond RPAREN COLON simple_stmt COMMA ELSE COLON simple_stmt
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    cond    go to state 40
+    simple  go to state 41
+    term    go to state 42
+    factor  go to state 43
+
+
+State 30
+
+   13 while_stmt: WHILE LPAREN • cond RPAREN COLON simple_stmt
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    cond    go to state 44
+    simple  go to state 41
+    term    go to state 42
+    factor  go to state 43
+
+
+State 31
+
+   15 print_stmt: PRINT LPAREN • STRING RPAREN
+
+    STRING  shift, and go to state 45
+
+
+State 32
+
+   14 assign_stmt: IDENT ASSIGN • simple
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 46
+    term    go to state 42
+    factor  go to state 43
+
+
+State 33
+
+    6 statement: simple_stmt SEMI •
+
+    $default  reduce using rule 6 (statement)
+
+
+State 34
+
+   17 step: ADD IDENT COMMA • quantity
+
+    NUMBER  shift, and go to state 47
+
+    quantity  go to state 48
+
+
+State 35
+
+   27 time: NUMBER M_UNIT •
+
+    $default  reduce using rule 27 (time)
+
+
+State 36
+
+   39 factor: VOLUME •
+
+    $default  reduce using rule 39 (factor)
+
+
+State 37
+
+   40 factor: LPAREN • simple RPAREN
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 49
+    term    go to state 42
+    factor  go to state 43
+
+
+State 38
+
+   37 factor: NUMBER •
+
+    $default  reduce using rule 37 (factor)
+
+
+State 39
+
+   38 factor: IDENT •
+
+    $default  reduce using rule 38 (factor)
+
+
+State 40
+
+   12 if_stmt: IF LPAREN cond • RPAREN COLON simple_stmt COMMA ELSE COLON simple_stmt
+
+    RPAREN  shift, and go to state 50
+
+
+State 41
+
+   28 cond: simple • EQ simple
+   29     | simple • NEQ simple
+   30     | simple • LT simple
+   31     | simple • GT simple
+   32     | simple • LE simple
+   33     | simple • GE simple
+
+    EQ   shift, and go to state 51
+    NEQ  shift, and go to state 52
+    LT   shift, and go to state 53
+    GT   shift, and go to state 54
+    LE   shift, and go to state 55
+    GE   shift, and go to state 56
+
+
+State 42
+
+   34 simple: term •
+   36 term: term • MUL factor
+
+    MUL  shift, and go to state 57
+
+    $default  reduce using rule 34 (simple)
+
+
+State 43
+
+   35 term: factor •
+
+    $default  reduce using rule 35 (term)
+
+
+State 44
+
+   13 while_stmt: WHILE LPAREN cond • RPAREN COLON simple_stmt
+
+    RPAREN  shift, and go to state 58
+
+
+State 45
+
+   15 print_stmt: PRINT LPAREN STRING • RPAREN
+
+    RPAREN  shift, and go to state 59
+
+
+State 46
+
+   14 assign_stmt: IDENT ASSIGN simple •
+
+    $default  reduce using rule 14 (assign_stmt)
+
+
+State 47
+
+   22 quantity: NUMBER •
+   23         | NUMBER • UNIT_G
+   24         | NUMBER • UNIT_ML
+   25         | NUMBER • UNIT_UN
+
+    UNIT_G   shift, and go to state 60
+    UNIT_ML  shift, and go to state 61
+    UNIT_UN  shift, and go to state 62
+
+    $default  reduce using rule 22 (quantity)
+
+
+State 48
+
+   17 step: ADD IDENT COMMA quantity •
+
+    $default  reduce using rule 17 (step)
+
+
+State 49
+
+   40 factor: LPAREN simple • RPAREN
+
+    RPAREN  shift, and go to state 63
+
+
+State 50
+
+   12 if_stmt: IF LPAREN cond RPAREN • COLON simple_stmt COMMA ELSE COLON simple_stmt
+
+    COLON  shift, and go to state 64
+
+
+State 51
+
+   28 cond: simple EQ • simple
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 65
+    term    go to state 42
+    factor  go to state 43
+
+
+State 52
+
+   29 cond: simple NEQ • simple
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 66
+    term    go to state 42
+    factor  go to state 43
+
+
+State 53
+
+   30 cond: simple LT • simple
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 67
+    term    go to state 42
+    factor  go to state 43
+
+
+State 54
+
+   31 cond: simple GT • simple
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 68
+    term    go to state 42
+    factor  go to state 43
+
+
+State 55
+
+   32 cond: simple LE • simple
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 69
+    term    go to state 42
+    factor  go to state 43
+
+
+State 56
+
+   33 cond: simple GE • simple
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    simple  go to state 70
+    term    go to state 42
+    factor  go to state 43
+
+
+State 57
+
+   36 term: term MUL • factor
+
+    VOLUME  shift, and go to state 36
+    LPAREN  shift, and go to state 37
+    NUMBER  shift, and go to state 38
+    IDENT   shift, and go to state 39
+
+    factor  go to state 71
+
+
+State 58
+
+   13 while_stmt: WHILE LPAREN cond RPAREN • COLON simple_stmt
+
+    COLON  shift, and go to state 72
+
+
+State 59
+
+   15 print_stmt: PRINT LPAREN STRING RPAREN •
+
+    $default  reduce using rule 15 (print_stmt)
+
+
+State 60
+
+   23 quantity: NUMBER UNIT_G •
+
+    $default  reduce using rule 23 (quantity)
+
+
+State 61
+
+   24 quantity: NUMBER UNIT_ML •
+
+    $default  reduce using rule 24 (quantity)
+
+
+State 62
+
+   25 quantity: NUMBER UNIT_UN •
+
+    $default  reduce using rule 25 (quantity)
+
+
+State 63
+
+   40 factor: LPAREN simple RPAREN •
+
+    $default  reduce using rule 40 (factor)
+
+
+State 64
+
+   12 if_stmt: IF LPAREN cond RPAREN COLON • simple_stmt COMMA ELSE COLON simple_stmt
+
+    ADD    shift, and go to state 7
+    MIX    shift, and go to state 8
+    RISE   shift, and go to state 9
+    BAKE   shift, and go to state 10
+    WAIT   shift, and go to state 11
+    IF     shift, and go to state 12
+    WHILE  shift, and go to state 13
+    PRINT  shift, and go to state 14
+    IDENT  shift, and go to state 16
+
+    simple_stmt  go to state 73
+    if_stmt      go to state 19
+    while_stmt   go to state 20
+    assign_stmt  go to state 21
+    print_stmt   go to state 22
+    step         go to state 23
+
+
+State 65
+
+   28 cond: simple EQ simple •
+
+    $default  reduce using rule 28 (cond)
+
+
+State 66
+
+   29 cond: simple NEQ simple •
+
+    $default  reduce using rule 29 (cond)
+
+
+State 67
+
+   30 cond: simple LT simple •
+
+    $default  reduce using rule 30 (cond)
+
+
+State 68
+
+   31 cond: simple GT simple •
+
+    $default  reduce using rule 31 (cond)
+
+
+State 69
+
+   32 cond: simple LE simple •
+
+    $default  reduce using rule 32 (cond)
+
+
+State 70
+
+   33 cond: simple GE simple •
+
+    $default  reduce using rule 33 (cond)
+
+
+State 71
+
+   36 term: term MUL factor •
+
+    $default  reduce using rule 36 (term)
+
+
+State 72
+
+   13 while_stmt: WHILE LPAREN cond RPAREN COLON • simple_stmt
+
+    ADD    shift, and go to state 7
+    MIX    shift, and go to state 8
+    RISE   shift, and go to state 9
+    BAKE   shift, and go to state 10
+    WAIT   shift, and go to state 11
+    IF     shift, and go to state 12
+    WHILE  shift, and go to state 13
+    PRINT  shift, and go to state 14
+    IDENT  shift, and go to state 16
+
+    simple_stmt  go to state 74
+    if_stmt      go to state 19
+    while_stmt   go to state 20
+    assign_stmt  go to state 21
+    print_stmt   go to state 22
+    step         go to state 23
+
+
+State 73
+
+   12 if_stmt: IF LPAREN cond RPAREN COLON simple_stmt • COMMA ELSE COLON simple_stmt
+
+    COMMA  shift, and go to state 75
+
+
+State 74
+
+   13 while_stmt: WHILE LPAREN cond RPAREN COLON simple_stmt •
+
+    $default  reduce using rule 13 (while_stmt)
+
+
+State 75
+
+   12 if_stmt: IF LPAREN cond RPAREN COLON simple_stmt COMMA • ELSE COLON simple_stmt
+
+    ELSE  shift, and go to state 76
+
+
+State 76
+
+   12 if_stmt: IF LPAREN cond RPAREN COLON simple_stmt COMMA ELSE • COLON simple_stmt
+
+    COLON  shift, and go to state 77
+
+
+State 77
+
+   12 if_stmt: IF LPAREN cond RPAREN COLON simple_stmt COMMA ELSE COLON • simple_stmt
+
+    ADD    shift, and go to state 7
+    MIX    shift, and go to state 8
+    RISE   shift, and go to state 9
+    BAKE   shift, and go to state 10
+    WAIT   shift, and go to state 11
+    IF     shift, and go to state 12
+    WHILE  shift, and go to state 13
+    PRINT  shift, and go to state 14
+    IDENT  shift, and go to state 16
+
+    simple_stmt  go to state 78
+    if_stmt      go to state 19
+    while_stmt   go to state 20
+    assign_stmt  go to state 21
+    print_stmt   go to state 22
+    step         go to state 23
+
+
+State 78
+
+   12 if_stmt: IF LPAREN cond RPAREN COLON simple_stmt COMMA ELSE COLON simple_stmt •
+
+    $default  reduce using rule 12 (if_stmt)
