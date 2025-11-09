@@ -1,0 +1,17 @@
+add farinha, 500;
+add agua, 300;
+mix;
+
+while (volume<200) {
+    rise 2;
+    wait 5;
+}
+
+if (volume > 300) {
+    print("Pão perfeito!");
+} else {
+    print("Ficou cru!");
+}
+
+bake 180;
+wait 30;
