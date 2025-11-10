@@ -7,7 +7,7 @@ A **BreadVM** simula o funcionamento real de uma **máquina de fazer pão domés
 
 O compilador lê instruções de alto nível (como mix, rise, bake) e gera código assembly interpretado pela VM. O sistema implementa variáveis (como o sensor volume), estruturas condicionais e loops, cumprindo todos os requisitos da APS. A BreadVM foi criada a partir da MicrowaveVM, adaptada para um contexto culinário. 
 
-**Nota**: há um protótipo Flex/Bison em C na pasta `breadlang/` (entrega parcial #1 e #2). A versão executável da linguagem/VM atualmente é a do compilador Python (`main.py`) + BreadVM (`breadVM.py`).
+**Nota**: há um protótipo Flex/Bison em C na pasta `breadlang/` (entrega parcial #1 e #2). **A versão executável da linguagem/VM atualmente é a do compilador Python** (`main.py`) + BreadVM (`breadVM.py`).  
 
 ### Diferenças BreadVM vs MicrowaveVM
 
@@ -35,7 +35,7 @@ O compilador lê instruções de alto nível (como mix, rise, bake) e gera códi
 
 - Ainda não há tipos (somente números/strings/sensor volume).
 
-- Comparações suportadas: <, >, ==, != (expansão para <=, >= é trivial).
+- Comparações suportadas: <, >, ==, !=, <=, >= 
 
 - Não há funções/receitas aninhadas; foco em script linear com blocos.
 

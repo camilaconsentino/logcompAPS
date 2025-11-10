@@ -102,15 +102,26 @@ class Lexer:
             self.next = Token(kind, ident)
             return
 
-        # operadores compostos (==, !=)
-        if c in ["=", "!"]:
-            if self.pos + 1 < len(s) and s[self.pos + 1] == "=":
-                if c == "=":
-                    self.next = Token("EQ", "==")
-                else:
-                    self.next = Token("NEQ", "!=")
+        # operadores compostos (==, !=, <=, >=)
+        if self.pos + 1 < len(s):
+            nxt = s[self.pos + 1]
+            if c == "=" and nxt == "=":
+                self.next = Token("EQ", "==")
                 self.pos += 2
                 return
+            elif c == "!" and nxt == "=":
+                self.next = Token("NEQ", "!=")
+                self.pos += 2
+                return
+            elif c == "<" and nxt == "=":
+                self.next = Token("LE", "<=")
+                self.pos += 2
+                return
+            elif c == ">" and nxt == "=":
+                self.next = Token("GE", ">=")
+                self.pos += 2
+                return
+
 
         # operadores simples e símbolos
         symbols = {
@@ -166,18 +177,20 @@ class Comparison(Node):
         lbl = str(id(self))
         #Code.append("READ R_VOL SENSOR_VOL")  # leitura do sensor
         Code.append(f"SET R_TMP {right}")
+        Code.append("CMP R_VOL R_TMP")
         if op == "<":
-            Code.append("CMP R_VOL R_TMP")
             Code.append(f"JLT cond_true_{lbl}")
         elif op == ">":
-            Code.append("CMP R_VOL R_TMP")
             Code.append(f"JGT cond_true_{lbl}")
         elif op == "==":
-            Code.append("CMP R_VOL R_TMP")
             Code.append(f"JE cond_true_{lbl}")
         elif op == "!=":
-            Code.append("CMP R_VOL R_TMP")
             Code.append(f"JNE cond_true_{lbl}")
+        elif op == "<=":
+            Code.append(f"JLE cond_true_{lbl}")
+        elif op == ">=":
+            Code.append(f"JGE cond_true_{lbl}")
+
         return lbl
 
 
@@ -273,8 +286,9 @@ class Parser:
 
         # agora lê o operador (<, >, ==, !=)
         op_token = lex.next
-        if op_token.kind not in ("LT", "GT", "EQ", "NEQ"):
-            raise Exception("Esperado operador de comparação (<, >, ==, !=)")
+        if op_token.kind not in ("LT", "GT", "EQ", "NEQ", "LE", "GE"):
+            raise Exception("Esperado operador de comparação (<, >, <=, >=, ==, !=)")
+
         op = op_token.value
         lex.select_next()
 

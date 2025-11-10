@@ -1,0 +1,8 @@
+if (volume <= 100) {
+    print("Ainda pequeno!");
+} else {
+    print("Já cresceu!");
+}
+if (volume >= 500) {
+    print("Volume máximo!");
+}
